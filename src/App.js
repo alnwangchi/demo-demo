@@ -1,24 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import routers from './routers';
+import { ThemeProvider } from '@mui/material/styles';
+import { AnimatePresence } from 'framer-motion';
+import theme from './theme';
+// import Header from './components/Header';
+
+const AnimationRoutes = () => {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence exitBeforeEnter>
+      <Routes location={location} key={location.pathname}>
+        {routers.map((router, idx) => {
+          if (!router.nested) {
+            return <Route key={idx} path={router.path} element={router.element} />;
+          } else {
+            return (
+              <Route key={idx} path={router.path} element={router.element}>
+                {router.nested.map((nestedRouter, idx) => (
+                  <Route key={idx} path={nestedRouter.path} element={nestedRouter.element} />
+                ))}
+              </Route>
+            );
+          }
+        })}
+      </Routes>
+    </AnimatePresence>
+  );
+};
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <AnimationRoutes />
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
 
