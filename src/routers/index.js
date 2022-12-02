@@ -33,7 +33,6 @@ const routers = [
     path: '*',
     // element: <NotFound />,
   },
-
   // { name: '錯誤頁', path: '/error/:status/:message_code', element: <Error /> },
 ];
 

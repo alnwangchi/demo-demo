@@ -18,6 +18,8 @@ const JestCounterPage = () => {
   const toggle = () => {
     setCount((prev) => prev * -1);
   };
+  // test && operator
+  const tmp = null;
 
   return (
     <Box
@@ -29,6 +31,7 @@ const JestCounterPage = () => {
         height: '100vh',
       }}
     >
+      {tmp && <Box>YO</Box>}
       <Box>
         <Typography variant='h2' sx={{ mb: 4 }} data-testid='count'>
           {count}
